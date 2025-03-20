@@ -1,0 +1,38 @@
+.container {
+  padding: 20px;
+}
+
+.requests-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.request-item {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.request-item h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.request-item p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.address {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+}
+
+.address p {
+  margin: 5px 0;
+}

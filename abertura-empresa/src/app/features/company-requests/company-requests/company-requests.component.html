@@ -1,4 +1,16 @@
-<div>
-  <h1>Pedidos de Abertura da Empresa</h1>
-  <p>Bem-vindo à página de pedidos de abertura.</p>
+<div class="container">
+  <h1>Pedidos de Abertura de Empresa</h1>
+  <div class="requests-list">
+    <div class="request-item" *ngFor="let request of requests">
+      <h3>{{ request.empresa.ds_nome_fantasia }}</h3>
+      <p>Responsável: {{ request.solicitante.ds_responsavel }}</p>
+      <p>Status: Pendente</p>
+      <p>Data: {{ currentDate }}</p>
+      <div class="address">
+        <p>Endereço: {{ request.empresa.endereco.ds_logradouro }}, {{ request.empresa.endereco.co_numero }}</p>
+        <p>{{ request.empresa.endereco.ds_bairro }}, {{ request.empresa.endereco.ds_municipio }} - {{ request.empresa.endereco.ds_uf }}</p>
+        <p>CEP: {{ request.empresa.endereco.co_cep }}</p>
+      </div>
+    </div>
+  </div>
 </div>
