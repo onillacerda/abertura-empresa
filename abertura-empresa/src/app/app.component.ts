@@ -3,10 +3,13 @@ import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  template: `
+    <router-outlet></router-outlet>
+  `,
+  imports: [RouterOutlet]
 })
 export class AppComponent {
-  title = 'abertura-empresa';
+  constructor() {
+    console.log('AppComponent instantiated');
+  }
 }
