@@ -4,7 +4,7 @@
 
 .requests-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   gap: 20px;
   margin-top: 20px;
 }
@@ -17,22 +17,59 @@
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.request-item h3 {
-  margin: 0 0 10px 0;
-  color: #333;
+.request-header {
+  margin-bottom: 15px;
 }
 
-.request-item p {
-  margin: 5px 0;
+.request-header h3 {
+  color: #333;
+  margin: 0 0 10px 0;
+}
+
+.request-meta {
+  display: flex;
+  justify-content: space-between;
+  color: #666;
+  font-size: 0.9em;
+}
+
+.status {
+  color: #2196F3;
+  font-weight: 500;
+}
+
+.date {
   color: #666;
 }
 
-.address {
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid #eee;
+.request-details {
+  display: grid;
+  gap: 20px;
 }
 
-.address p {
+.responsavel, .endereco {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+.responsavel h4, .endereco h4 {
+  color: #333;
+  margin: 0 0 10px 0;
+  font-size: 1.1em;
+}
+
+.responsavel p, .endereco p {
   margin: 5px 0;
+  color: #444;
+}
+
+.responsavel p:first-child {
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .requests-list {
+    grid-template-columns: 1fr;
+  }
 }

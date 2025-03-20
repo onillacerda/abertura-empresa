@@ -2,14 +2,27 @@
   <h1>Pedidos de Abertura de Empresa</h1>
   <div class="requests-list">
     <div class="request-item" *ngFor="let request of requests">
-      <h3>{{ request.empresa.ds_nome_fantasia }}</h3>
-      <p>Responsável: {{ request.solicitante.ds_responsavel }}</p>
-      <p>Status: Pendente</p>
-      <p>Data: {{ currentDate }}</p>
-      <div class="address">
-        <p>Endereço: {{ request.empresa.endereco.ds_logradouro }}, {{ request.empresa.endereco.co_numero }}</p>
-        <p>{{ request.empresa.endereco.ds_bairro }}, {{ request.empresa.endereco.ds_municipio }} - {{ request.empresa.endereco.ds_uf }}</p>
-        <p>CEP: {{ request.empresa.endereco.co_cep }}</p>
+      <div class="request-header">
+        <h3>{{ request.empresa.ds_nome_fantasia }}</h3>
+        <div class="request-meta">
+          <span class="status">Status: Pendente</span>
+          <span class="date">Data: {{ currentDate }}</span>
+        </div>
+      </div>
+      <div class="request-details">
+        <div class="responsavel">
+          <h4>Responsável:</h4>
+          <p>{{ request.solicitante.ds_responsavel }}</p>
+          <p>CPF: {{ request.solicitante.nu_cpf }}</p>
+          <p>Data de Nascimento: {{ request.solicitante.date_nascimento }}</p>
+        </div>
+        <div class="endereco">
+          <h4>Endereço da Empresa:</h4>
+          <p>{{ request.empresa.endereco.ds_logradouro }}, {{ request.empresa.endereco.co_numero }}</p>
+          <p>{{ request.empresa.endereco.ds_complemento ? request.empresa.endereco.ds_complemento + ', ' : '' }}
+             {{ request.empresa.endereco.ds_bairro }}, {{ request.empresa.endereco.ds_municipio }} - {{ request.empresa.endereco.ds_uf }}</p>
+          <p>CEP: {{ request.empresa.endereco.co_cep }}</p>
+        </div>
       </div>
     </div>
   </div>
