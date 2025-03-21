@@ -51,6 +51,17 @@
   text-align: center;
 }
 
+.dialog-content h4 {
+  color: #005cbb;
+  text-align: center;
+}
+.dialog-content hr {
+    border: 0;
+    height: 1px;
+    background-color: #ddd;
+    margin: 10px 0;
+}
+
 .details-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -135,4 +146,31 @@ button.mat-raised-button {
 
 .ustom-dialog {
     border-radius: 4px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.add-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  background-color: #005cbb;
+  color: white;
+}
+
+.add-button:hover {
+  background-color: #004a99;
+}
+
+.add-button mat-icon {
+  font-size: 20px;
+  color: white;
 }

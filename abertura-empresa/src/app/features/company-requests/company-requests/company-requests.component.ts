@@ -4,6 +4,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 
 interface CompanyRequest {
   id: string;
@@ -30,7 +31,7 @@ interface CompanyRequest {
   selector: 'app-company-requests',
   templateUrl: './company-requests.component.html',
   styleUrls: ['./company-requests.component.css'],
-  imports: [CommonModule, HttpClientModule, MatButton, RouterLink]
+  imports: [CommonModule, HttpClientModule, MatButton, RouterLink, MatIconModule]
 })
 export class CompanyRequestsComponent implements OnInit {
   requests: CompanyRequest[] = [];

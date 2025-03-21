@@ -3,12 +3,13 @@ import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  template: `
-    <router-outlet></router-outlet>
-  `,
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
   imports: [RouterOutlet]
 })
 export class AppComponent {
+  currentDate: string = new Date().toLocaleDateString();
+
   constructor() {
     console.log('AppComponent instantiated');
   }

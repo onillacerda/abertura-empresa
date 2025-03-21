@@ -1,5 +1,10 @@
 <div class="container">
-  <h1>Pedidos de Abertura de Empresa</h1>
+  <div class="button-container">
+    <button mat-raised-button color="primary" class="add-button">
+      <mat-icon>add</mat-icon>
+      Solicitar Abertura
+    </button>
+  </div>
   <div class="requests-list">
     <div class="request-item" *ngFor="let request of requests">
       <div class="request-header">
@@ -16,6 +21,7 @@
 <!-- Modal de Detalhes -->
 <ng-template #detailsDialog let-request let-dialogRef="dialogRef">
   <div class="dialog-content">
+    <h4>Detalhes do Pedido</h4><hr/>
     <h2>{{ request.empresa.ds_nome_fantasia }}</h2>
     <div class="details-container">
       <div class="details-section">
