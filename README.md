@@ -26,6 +26,9 @@ cd .\abertura-empresa
 ng ng test
 ```
 
+5. Projeto publicado no servidor Netlify:
+https://abertura-empresa.netlify.app/
+
 ------------------------------------------------------------------
 
 Aplicativo Abertura de Empresa: 
