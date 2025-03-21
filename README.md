@@ -53,6 +53,8 @@ Aplicativo Abertura de Empresa:
 - Texto informativo abaixo do campo que está com erro, para uma melhor compreensão do usuário.
 - Opção de excluir pedido.
 - Status do pedido ser exibido na tela de listagem.
+- Estado ser por seleção
+- CEP ser preenchido automaticamente outros campos
 - Tela de autenticação
 - Botão de sair do sistema
 - Usuários para autenticação
