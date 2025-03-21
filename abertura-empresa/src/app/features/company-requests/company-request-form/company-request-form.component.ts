@@ -9,7 +9,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CompanyRequest } from '../company-requests/company-requests.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -39,30 +39,44 @@ export class CompanyRequestFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private route: ActivatedRoute
   ) {
     this.initForm();
   }
-
+  
   ngOnInit(): void {
-    if (this.request) {
-      this.patchForm();
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.http.get(`http://localhost:3000/empresas/${id}`)
+        .subscribe({
+          next: (response: any) => {
+            this.request = response;
+            this.initForm();
+          },
+          error: (error) => {
+            console.error('Erro ao carregar pedido:', error);
+            this.router.navigate(['/empresa/pedidos']);
+          }
+        });
+    } else {
+      this.initForm();
     }
   }
 
   private initForm(): void {
     this.requestForm = this.fb.group({
-      nomeResponsavel: ['', [Validators.required]],
-      cpf: ['', [Validators.required, Validators.pattern('^[0-9]{11}$')]],
-      dataNascimento: ['', [Validators.required]],
-      nomeFantasia: ['', [Validators.required]],
-      cep: ['', [Validators.required, Validators.pattern('^[0-9]{8}$')]],
-      endereco: ['', [Validators.required]],
-      numero: ['', [Validators.required]],
-      complemento: [''],
-      bairro: ['', [Validators.required]],
-      cidade: ['', [Validators.required]],
-      estado: ['', [Validators.required]]
+      nomeResponsavel: [this.request?.solicitante.ds_responsavel || '', [Validators.required]],
+      cpf: [this.request?.solicitante.nu_cpf || '', [Validators.required, Validators.pattern('^[0-9]{11}$')]],
+      dataNascimento: [this.request?.solicitante.date_nascimento || '', [Validators.required]],
+      nomeFantasia: [this.request?.empresa.ds_nome_fantasia || '', [Validators.required]],
+      cep: [this.request?.empresa.endereco.co_cep || '', [Validators.required, Validators.pattern('^[0-9]{8}$')]],
+      endereco: [this.request?.empresa.endereco.ds_logradouro || '', [Validators.required]],
+      numero: [this.request?.empresa.endereco.co_numero || '', [Validators.required]],
+      complemento: [this.request?.empresa.endereco.ds_complemento || ''],
+      bairro: [this.request?.empresa.endereco.ds_bairro || '', [Validators.required]],
+      cidade: [this.request?.empresa.endereco.ds_municipio || '', [Validators.required]],
+      estado: [this.request?.empresa.endereco.ds_uf || '', [Validators.required]]
     });
   }
 
@@ -89,7 +103,7 @@ export class CompanyRequestFormComponent implements OnInit {
     if (this.requestForm.valid) {
       const dataNascimento = new Date(this.requestForm.value.dataNascimento);
       const dataFormatada = dataNascimento.toISOString().split('T')[0];
-
+  
       const formData = {
         solicitante: {
           ds_responsavel: this.requestForm.value.nomeResponsavel,
@@ -108,7 +122,7 @@ export class CompanyRequestFormComponent implements OnInit {
             ds_uf: this.requestForm.value.estado
           }
         },
-        id: this.request?.id || Date.now().toString()
+        id: this.request?.id
       };
   
       if (this.request) {

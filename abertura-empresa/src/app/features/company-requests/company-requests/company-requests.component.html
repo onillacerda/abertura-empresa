@@ -40,7 +40,7 @@
     </div>
     <div class="dialog-actions">
       <button mat-button (click)="dialogRef.close()">Fechar</button>
-      <button mat-raised-button color="primary" [routerLink]="['/editar', request.id]">
+      <button mat-raised-button color="primary" (click)="dialogRef.close(); navigateToEdit(request)">
         Editar Pedido
       </button>
     </div>

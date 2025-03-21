@@ -79,6 +79,10 @@ export class CompanyRequestsComponent implements OnInit {
     });
   }
 
+  navigateToEdit(request: CompanyRequest): void {
+    this.router.navigate(['/pedidos/editar', request.id]);
+  }
+
   openForm(request: CompanyRequest | null) {
     const dialogRef = this.dialog.open(CompanyRequestFormComponent, {
       data: request,
