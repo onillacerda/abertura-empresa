@@ -19,6 +19,13 @@ ng serve
 
 3. Abra o navegador e acesse `http://localhost:4200`.
 
+4. Para executar os testes:
+
+```bash
+cd .\abertura-empresa
+ng ng test
+```
+
 ------------------------------------------------------------------
 
 Aplicativo Abertura de Empresa: 

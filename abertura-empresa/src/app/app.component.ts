@@ -8,6 +8,7 @@ import { RouterOutlet } from '@angular/router';
   imports: [RouterOutlet]
 })
 export class AppComponent {
+  title = 'abertura-empresa';
   currentDate: string = new Date().toLocaleDateString();
 
   constructor() {
