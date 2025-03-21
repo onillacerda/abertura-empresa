@@ -11,6 +11,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CompanyRequest } from '../company-requests/company-requests.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
+import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-company-request-form',
@@ -26,7 +29,9 @@ import { HttpClient } from '@angular/common/http';
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    SuccessDialogComponent,
+    MatIconModule
   ],
   standalone: true
 })
@@ -40,7 +45,8 @@ export class CompanyRequestFormComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private http: HttpClient,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialog: MatDialog
   ) {
     this.initForm();
   }
@@ -126,22 +132,20 @@ export class CompanyRequestFormComponent implements OnInit {
       };
   
       if (this.request) {
-        // Atualizar pedido existente
         this.http.put(`http://localhost:3000/empresas/${this.request.id}`, formData)
           .subscribe({
             next: () => {
-              this.router.navigate(['/pedidos']);
+              this.showSuccessDialog();
             },
             error: (error) => {
               console.error('Erro ao atualizar pedido:', error);
             }
           });
       } else {
-        // Criar novo pedido
         this.http.post('http://localhost:3000/empresas', formData)
           .subscribe({
             next: () => {
-              this.router.navigate(['/pedidos']);
+              this.showSuccessDialog();
             },
             error: (error) => {
               console.error('Erro ao criar pedido:', error);
@@ -149,6 +153,14 @@ export class CompanyRequestFormComponent implements OnInit {
           });
       }
     }
+  }
+
+  private showSuccessDialog(): void {
+    const dialogRef = this.dialog.open(SuccessDialogComponent);
+    
+    dialogRef.afterClosed().subscribe(() => {
+      this.router.navigate(['/pedidos']);
+    });
   }
 
   cancel(): void {
