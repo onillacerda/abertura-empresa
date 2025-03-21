@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatButton } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
 
 interface CompanyRequest {
   id: string;
@@ -27,13 +30,17 @@ interface CompanyRequest {
   selector: 'app-company-requests',
   templateUrl: './company-requests.component.html',
   styleUrls: ['./company-requests.component.css'],
-  imports: [CommonModule, HttpClientModule]
+  imports: [CommonModule, HttpClientModule, MatButton, RouterLink]
 })
 export class CompanyRequestsComponent implements OnInit {
   requests: CompanyRequest[] = [];
   currentDate: string = new Date().toLocaleDateString();
+  @ViewChild('detailsDialog') detailsDialog!: TemplateRef<any>;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.fetchRequests();
@@ -49,5 +56,13 @@ export class CompanyRequestsComponent implements OnInit {
           console.error('Erro ao carregar pedidos:', error);
         }
       });
+  }
+
+  openDetails(request: CompanyRequest): void {
+    this.dialog.open(this.detailsDialog, {
+      data: request,
+      width: '800px',
+      panelClass: 'custom-dialog'
+    });
   }
 }

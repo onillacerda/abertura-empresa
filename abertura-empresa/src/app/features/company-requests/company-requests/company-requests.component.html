@@ -4,26 +4,39 @@
     <div class="request-item" *ngFor="let request of requests">
       <div class="request-header">
         <h3>{{ request.empresa.ds_nome_fantasia }}</h3>
-        <div class="request-meta">
-          <span class="status">Status: Pendente</span>
-          <span class="date">Data: {{ currentDate }}</span>
-        </div>
-      </div>
-      <div class="request-details">
-        <div class="responsavel">
-          <h4>Responsável:</h4>
-          <p>{{ request.solicitante.ds_responsavel }}</p>
-          <p>CPF: {{ request.solicitante.nu_cpf }}</p>
-          <p>Data de Nascimento: {{ request.solicitante.date_nascimento }}</p>
-        </div>
-        <div class="endereco">
-          <h4>Endereço da Empresa:</h4>
-          <p>{{ request.empresa.endereco.ds_logradouro }}, {{ request.empresa.endereco.co_numero }}</p>
-          <p>{{ request.empresa.endereco.ds_complemento ? request.empresa.endereco.ds_complemento + ', ' : '' }}
-             {{ request.empresa.endereco.ds_bairro }}, {{ request.empresa.endereco.ds_municipio }} - {{ request.empresa.endereco.ds_uf }}</p>
-          <p>CEP: {{ request.empresa.endereco.co_cep }}</p>
-        </div>
+        <p>{{ request.solicitante.ds_responsavel }}</p>
+        <button mat-raised-button color="primary" (click)="openDetails(request)">
+          Visualizar Detalhes
+        </button>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Modal de Detalhes -->
+<ng-template #detailsDialog let-request let-dialogRef="dialogRef">
+  <div class="dialog-content">
+    <h2>{{ request.empresa.ds_nome_fantasia }}</h2>
+    <div class="details-container">
+      <div class="details-section">
+        <h3>Responsável</h3>
+        <p>{{ request.solicitante.ds_responsavel }}</p>
+        <p>CPF: {{ request.solicitante.nu_cpf }}</p>
+        <p>Data de Nascimento: {{ request.solicitante.date_nascimento }}</p>
+      </div>
+      <div class="details-section">
+        <h3>Endereço da Empresa</h3>
+        <p>{{ request.empresa.endereco.ds_logradouro }}, {{ request.empresa.endereco.co_numero }}</p>
+        <p>{{ request.empresa.endereco.ds_complemento ? request.empresa.endereco.ds_complemento + ', ' : '' }}
+           {{ request.empresa.endereco.ds_bairro }}, {{ request.empresa.endereco.ds_municipio }} - {{ request.empresa.endereco.ds_uf }}</p>
+        <p>CEP: {{ request.empresa.endereco.co_cep }}</p>
+      </div>
+    </div>
+    <div class="dialog-actions">
+      <button mat-button (click)="dialogRef.close()">Fechar</button>
+      <button mat-raised-button color="primary" [routerLink]="['/editar', request.id]">
+        Editar Pedido
+      </button>
+    </div>
+  </div>
+</ng-template>
