@@ -1,0 +1,78 @@
+<div class="form-container">
+  <form [formGroup]="requestForm" (ngSubmit)="onSubmit()">
+    <div class="form-columns">
+      <div class="form-section">
+        <h2>Dados do Responsável</h2>
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Nome do Responsável</mat-label>
+            <input matInput formControlName="nomeResponsavel">
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>CPF</mat-label>
+            <input matInput formControlName="cpf">
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Data de Nascimento</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="dataNascimento">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2>Dados da Empresa</h2>
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Nome Fantasia</mat-label>
+            <input matInput formControlName="nomeFantasia">
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Endereço</mat-label>
+            <input matInput formControlName="endereco">
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Complemento</mat-label>
+            <input matInput formControlName="complemento">
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Bairro</mat-label>
+            <input matInput formControlName="bairro">
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Cidade</mat-label>
+            <input matInput formControlName="cidade">
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Estado</mat-label>
+            <input matInput formControlName="estado">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit">
+        {{ request ? 'Atualizar' : 'Cadastrar' }}
+      </button>
+      <button mat-button type="button" (click)="cancel()">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,12 +1,15 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { CompanyRequestFormComponent } from '../company-request-form/company-request-form.component';
+import { Router } from '@angular/router';
 
-interface CompanyRequest {
+export interface CompanyRequest {
   id: string;
   solicitante: {
     ds_responsavel: string;
@@ -31,7 +34,15 @@ interface CompanyRequest {
   selector: 'app-company-requests',
   templateUrl: './company-requests.component.html',
   styleUrls: ['./company-requests.component.css'],
-  imports: [CommonModule, HttpClientModule, MatButton, RouterLink, MatIconModule]
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    MatDialogModule,
+    MatButton,
+    RouterLink,
+    MatIconModule
+  ],
+  standalone: true
 })
 export class CompanyRequestsComponent implements OnInit {
   requests: CompanyRequest[] = [];
@@ -40,7 +51,8 @@ export class CompanyRequestsComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -64,6 +76,20 @@ export class CompanyRequestsComponent implements OnInit {
       data: request,
       width: '800px',
       panelClass: 'custom-dialog'
+    });
+  }
+
+  openForm(request: CompanyRequest | null) {
+    const dialogRef = this.dialog.open(CompanyRequestFormComponent, {
+      data: request,
+      width: '800px',
+      panelClass: 'custom-dialog'
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Implementar lógica de salvar/atualizar
+      }
     });
   }
 }
